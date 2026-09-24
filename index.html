@@ -3,257 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Independence Hotel Sihanoukville - Guest Feedback</title>
+    <title>Independence Hotel - Guest Feedback</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            navy: '#1B365D',
-                            darkNavy: '#11223E',
-                            lightNavy: '#284E82',
-                            accent: '#C5A880',
-                            slateGray: '#717D8A',
-                            lightBg: '#F8FAFC'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif']
+                        navy: '#1B365D',
+                        gold: '#C5A880',
                     }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .star-rating i { color: #e5e7eb; cursor: pointer; transition: color 0.2s; }
+        .star-rating i.active, .star-rating i:hover { color: #C5A880; }
+    </style>
 </head>
-<body class="h-full bg-brand-lightBg text-slate-800 flex flex-col justify-between antialiased selection:bg-brand-navy selection:text-white">
-
-    <main class="w-full max-w-2xl mx-auto px-4 py-8 sm:py-12 flex-grow flex items-center justify-center">
-        <div class="w-full bg-white border border-slate-200/80 rounded-3xl shadow-xl overflow-hidden transition-all duration-300">
-            
-            <div class="bg-gradient-to-b from-slate-50 to-white px-6 pt-8 pb-6 text-center border-b border-slate-100">
-                <!-- Hotel Logo Image -->
-                <div class="flex justify-center mb-2">
-                    <img src="Logo PNG-white.png" alt="Independence Hotel Logo" class="h-24 sm:h-32 object-contain" onerror="this.src='https://placehold.co/400x150/ffffff/1B365D?text=Independence+Hotel'">
-                </div>
-                
-                <div class="mt-4 border-t border-slate-100 pt-4">
-                    <h2 class="text-base sm:text-lg font-semibold text-brand-navy">Guest Experience Survey</h2>
-                    <p class="text-slate-500 text-xs sm:text-sm mt-0.5">We value your stay and invite you to share your feedback.</p>
-                </div>
-            </div>
-
-            <form id="feedbackForm" class="p-6 sm:p-8 space-y-6" onsubmit="handleFormSubmit(event)">
-                
-                <!-- Outlet Selection -->
-                <div>
-                    <label for="outlet" class="block text-xs font-bold uppercase tracking-wider text-brand-navy mb-2">
-                        Where are you dining or relaxing today? <span class="text-brand-accent">*</span>
-                    </label>
-                    <div class="relative">
-                        <select id="outlet" name="outlet" required
-                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base text-slate-800 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-navy focus:border-transparent transition-all">
-                            <option value="" disabled selected>-- Please select outlet or location --</option>
-                            <option value="Sunset Restaurant">Sunset Restaurant</option>
-                            <option value="Coral Restaurant (Breakfast)">Coral Restaurant (Breakfast)</option>
-                            <option value="History Lounge & Bar">History Lounge & Bar</option>
-                            <option value="Ocean Pool">Ocean Pool</option>
-                            <option value="Sky Pool Bar">Sky Pool Bar</option>
-                            <option value="Beach Bar">Beach Bar</option>
-                            <option value="Room Service">Room Service</option>
-                            <option value="Banquet/Event">Banquet / Event</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Star Rating System -->
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-brand-navy mb-2">
-                        How was your overall experience today? <span class="text-brand-accent">*</span>
-                    </label>
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
-                        <div id="starContainer" class="flex justify-center items-center space-x-2 sm:space-x-3 py-1">
-                            <!-- Star 1 -->
-                            <button type="button" onclick="setRating(1)" onmouseenter="hoverRating(1)" onmouseleave="resetHover()" class="star-btn p-1 text-slate-300 hover:scale-110 transition-transform focus:outline-none" data-value="1">
-                                <svg class="w-9 h-9 sm:w-10 sm:h-10 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            </button>
-                            <!-- Star 2 -->
-                            <button type="button" onclick="setRating(2)" onmouseenter="hoverRating(2)" onmouseleave="resetHover()" class="star-btn p-1 text-slate-300 hover:scale-110 transition-transform focus:outline-none" data-value="2">
-                                <svg class="w-9 h-9 sm:w-10 sm:h-10 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            </button>
-                            <!-- Star 3 -->
-                            <button type="button" onclick="setRating(3)" onmouseenter="hoverRating(3)" onmouseleave="resetHover()" class="star-btn p-1 text-slate-300 hover:scale-110 transition-transform focus:outline-none" data-value="3">
-                                <svg class="w-9 h-9 sm:w-10 sm:h-10 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            </button>
-                            <!-- Star 4 -->
-                            <button type="button" onclick="setRating(4)" onmouseenter="hoverRating(4)" onmouseleave="resetHover()" class="star-btn p-1 text-slate-300 hover:scale-110 transition-transform focus:outline-none" data-value="4">
-                                <svg class="w-9 h-9 sm:w-10 sm:h-10 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            </button>
-                            <!-- Star 5 -->
-                            <button type="button" onclick="setRating(5)" onmouseenter="hoverRating(5)" onmouseleave="resetHover()" class="star-btn p-1 text-slate-300 hover:scale-110 transition-transform focus:outline-none" data-value="5">
-                                <svg class="w-9 h-9 sm:w-10 sm:h-10 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            </button>
-                        </div>
-                        <input type="hidden" id="ratingInput" name="rating" required>
-                        <p id="ratingLabel" class="text-xs font-semibold text-brand-slateGray uppercase tracking-wider mt-1">Select your rating</p>
-                    </div>
-                </div>
-
-                <!-- Highlights Checkboxes -->
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-brand-navy mb-2">
-                        What stood out during your visit? <span class="text-slate-400 font-normal normal-case">(Select all that apply)</span>
-                    </label>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                        <label class="flex items-center space-x-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100/70 transition-all">
-                            <input type="checkbox" name="highlights" value="Food Quality" class="w-4 h-4 rounded text-brand-navy focus:ring-brand-navy">
-                            <span class="text-sm font-medium text-slate-700">Food Quality</span>
-                        </label>
-                        <label class="flex items-center space-x-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100/70 transition-all">
-                            <input type="checkbox" name="highlights" value="Speed of Service" class="w-4 h-4 rounded text-brand-navy focus:ring-brand-navy">
-                            <span class="text-sm font-medium text-slate-700">Speed of Service</span>
-                        </label>
-                        <label class="flex items-center space-x-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100/70 transition-all">
-                            <input type="checkbox" name="highlights" value="Staff Friendliness" class="w-4 h-4 rounded text-brand-navy focus:ring-brand-navy">
-                            <span class="text-sm font-medium text-slate-700">Staff Friendliness</span>
-                        </label>
-                        <label class="flex items-center space-x-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100/70 transition-all">
-                            <input type="checkbox" name="highlights" value="Cleanliness" class="w-4 h-4 rounded text-brand-navy focus:ring-brand-navy">
-                            <span class="text-sm font-medium text-slate-700">Cleanliness</span>
-                        </label>
-                        <label class="flex items-center space-x-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100/70 transition-all">
-                            <input type="checkbox" name="highlights" value="Atmosphere" class="w-4 h-4 rounded text-brand-navy focus:ring-brand-navy">
-                            <span class="text-sm font-medium text-slate-700">Atmosphere</span>
-                        </label>
-                        <label class="flex items-center space-x-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100/70 transition-all">
-                            <input type="checkbox" name="highlights" value="Presentation" class="w-4 h-4 rounded text-brand-navy focus:ring-brand-navy">
-                            <span class="text-sm font-medium text-slate-700">Presentation</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Comments Textarea -->
-                <div>
-                    <label for="comments" class="block text-xs font-bold uppercase tracking-wider text-brand-navy mb-2">
-                        Any comments or suggestions for us? <span class="text-slate-400 font-normal normal-case">(Optional)</span>
-                    </label>
-                    <textarea id="comments" name="comments" rows="3" placeholder="Tell us how we can make your experience even better..."
-                        class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm sm:text-base text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-navy focus:border-transparent transition-all"></textarea>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" id="submitBtn"
-                    class="w-full bg-brand-navy text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:bg-brand-lightNavy active:scale-[0.99] transition-all flex items-center justify-center space-x-2">
-                    <span>Submit Feedback</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </button>
-            </form>
-
-            <div id="successView" class="hidden p-8 sm:p-12 text-center space-y-4">
-                <div class="w-16 h-16 bg-emerald-50 border border-emerald-200 text-emerald-600 rounded-2xl mx-auto flex items-center justify-center text-2xl shadow-sm">✓</div>
-                <h2 class="text-2xl font-serif font-bold text-brand-navy">Thank You!</h2>
-                <p class="text-slate-600 text-sm max-w-sm mx-auto leading-relaxed">Your feedback has been successfully recorded. We deeply appreciate your help in creating exceptional experiences at Independence Hotel.</p>
-                <button onclick="resetForm()" class="mt-4 px-6 py-3 bg-slate-100 text-brand-navy text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-slate-200 transition-all">Submit Another Response</button>
-            </div>
-
+<body class="bg-gray-50 h-full flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white rounded-xl shadow-lg overflow-hidden mt-4 mb-4">
+        <!-- Header & Logo -->
+        <div class="bg-navy p-6 text-center">
+            <img src="Logo PNG-white.png" alt="Independence Hotel" class="h-16 mx-auto mb-2" onerror="this.src='https://via.placeholder.com/150x50?text=Logo'">
+            <h2 class="text-white text-xl font-semibold tracking-wider">GUEST EXPERIENCE SURVEY</h2>
         </div>
-    </main>
 
-    <!-- Footer Copyright -->
-    <footer class="w-full text-center py-4 text-xs text-slate-400 tracking-wider">
-        &copy; 2026 Independence Hotel Sihanoukville. All rights reserved.
-    </footer>
+        <!-- Form -->
+        <form id="feedbackForm" class="p-6 space-y-6">
+            <!-- Outlet Selection -->
+            <div>
+                <label class="block text-sm font-bold text-navy mb-2">Where are you dining or relaxing today? *</label>
+                <select id="outlet" required class="w-full border-gray-300 border rounded-md p-3 focus:ring-navy focus:border-navy bg-white text-gray-700">
+                    <option value="">-- Please select location --</option>
+                    <option value="Sunset Restaurant">Sunset Restaurant</option>
+                    <option value="Coral Restaurant (Breakfast)">Coral Restaurant (Breakfast)</option>
+                    <option value="History Lounge & Bar">History Lounge & Bar</option>
+                    <option value="Ocean Pool">Ocean Pool</option>
+                    <option value="Sky Pool Bar">Sky Pool Bar</option>
+                    <option value="Beach Bar">Beach Bar</option>
+                    <option value="Room Service">Room Service</option>
+                    <option value="Banquet / Event">Banquet / Event</option>
+                </select>
+            </div>
 
+            <hr class="border-gray-200">
+
+            <!-- Ratings Section -->
+            <div class="space-y-4">
+                
+                <!-- Overall -->
+                <div class="flex flex-col items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                    <label class="text-sm font-bold text-navy mb-1">Overall Experience *</label>
+                    <div class="flex space-x-2 text-3xl star-rating" data-category="overall">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                    <input type="hidden" id="rating_overall">
+                </div>
+
+                <!-- Food & Beverage -->
+                <div class="flex flex-col items-center">
+                    <label class="text-xs font-semibold text-gray-600 mb-1">Food & Beverage Quality *</label>
+                    <div class="flex space-x-1 text-2xl star-rating" data-category="food">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                    <input type="hidden" id="rating_food">
+                </div>
+
+                <!-- Staff Service -->
+                <div class="flex flex-col items-center">
+                    <label class="text-xs font-semibold text-gray-600 mb-1">Staff Service & Speed *</label>
+                    <div class="flex space-x-1 text-2xl star-rating" data-category="service">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                    <input type="hidden" id="rating_service">
+                </div>
+
+                <!-- Cleanliness & Atmosphere -->
+                <div class="flex flex-col items-center">
+                    <label class="text-xs font-semibold text-gray-600 mb-1">Cleanliness & Atmosphere *</label>
+                    <div class="flex space-x-1 text-2xl star-rating" data-category="cleanliness">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                    <input type="hidden" id="rating_cleanliness">
+                </div>
+
+            </div>
+
+            <hr class="border-gray-200">
+
+            <!-- Comments -->
+            <div>
+                <label class="block text-sm font-bold text-navy mb-2">Any comments or suggestions for us? (Optional)</label>
+                <textarea id="comments" rows="3" class="w-full border-gray-300 border rounded-md p-3 focus:ring-navy focus:border-navy text-sm" placeholder="Tell us how we can make your experience even better..."></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitBtn" class="w-full bg-navy text-white font-bold py-3 px-4 rounded-md hover:bg-opacity-90 transition shadow-md">
+                SUBMIT FEEDBACK
+            </button>
+        </form>
+    </div>
+
+    <!-- Script to send data -->
     <script>
-        let currentRating = 0;
-        const ratingLabels = {
-            1: "Poor 😞",
-            2: "Fair 😐",
-            3: "Good 🙂",
-            4: "Great 😄",
-            5: "Excellent 🌟"
-        };
+        // Setup star click events for all categories
+        const starGroups = document.querySelectorAll('.star-rating');
+        
+        starGroups.forEach(group => {
+            const category = group.getAttribute('data-category');
+            const input = document.getElementById('rating_' + category);
+            const stars = group.querySelectorAll('i');
 
-        function setRating(rating) {
-            currentRating = rating;
-            document.getElementById('ratingInput').value = rating;
-            document.getElementById('ratingLabel').innerText = ratingLabels[rating];
-            updateStarDisplay(rating);
-        }
-
-        function hoverRating(rating) {
-            updateStarDisplay(rating, true);
-        }
-
-        function resetHover() {
-            updateStarDisplay(currentRating);
-        }
-
-        function updateStarDisplay(rating, isHover = false) {
-            const stars = document.querySelectorAll('.star-btn');
-            stars.forEach((star, index) => {
-                const starVal = index + 1;
-                if (starVal <= rating) {
-                    star.classList.remove('text-slate-300');
-                    star.classList.add('text-brand-accent');
-                } else {
-                    star.classList.remove('text-brand-accent');
-                    star.classList.add('text-slate-300');
-                }
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    let rating = this.getAttribute('data-rating');
+                    input.value = rating;
+                    
+                    // Reset all stars in this group
+                    stars.forEach(s => s.classList.remove('active'));
+                    // Highlight selected stars
+                    for(let i=0; i<rating; i++) {
+                        stars[i].classList.add('active');
+                    }
+                });
             });
-            if (!isHover && rating > 0) {
-                document.getElementById('ratingLabel').innerText = ratingLabels[rating];
-            } else if (!isHover && rating === 0) {
-                document.getElementById('ratingLabel').innerText = "Select your rating";
-            }
-        }
+        });
 
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            
-            const ratingVal = document.getElementById('ratingInput').value;
-            if (!ratingVal) {
-                alert("Please select a star rating before submitting.");
+        // Handle Submit
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validate all stars are clicked
+            const rOverall = document.getElementById('rating_overall').value;
+            const rFood = document.getElementById('rating_food').value;
+            const rService = document.getElementById('rating_service').value;
+            const rClean = document.getElementById('rating_cleanliness').value;
+
+            if(!rOverall || !rFood || !rService || !rClean) {
+                alert('Please provide a star rating for all categories to help us improve.');
                 return;
             }
 
             const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerText = "SUBMITTING...";
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span>Sending feedback...</span>';
 
-            const formData = {
+            const data = {
                 outlet: document.getElementById('outlet').value,
-                rating: ratingVal,
-                highlights: Array.from(document.querySelectorAll('input[name="highlights"]:checked')).map(el => el.value),
-                comments: document.getElementById('comments').value,
-                timestamp: new Date().toISOString()
+                rating_overall: rOverall,
+                rating_food: rFood,
+                rating_service: rService,
+                rating_cleanliness: rClean,
+                comments: document.getElementById('comments').value
             };
 
-            console.log("Feedback Payload Prepared for Google Sheets / Telegram Webhook:", formData);
+            const webAppUrl = "https://script.google.com/macros/s/AKfycbz5XOsC36BIE29PJksgDMQE1CtOYO9xrtOzX4hi26sLo0l-NBWrlpyzCqPAwixgkWdU/exec";
 
-            setTimeout(() => {
-                document.getElementById('feedbackForm').classList.add('hidden');
-                document.getElementById('successView').classList.remove('hidden');
+            fetch(webAppUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(response => {
+                submitBtn.innerText = "SUCCESS! THANK YOU";
+                submitBtn.classList.remove('bg-navy');
+                submitBtn.style.backgroundColor = "#28a745"; 
+                
+                // Clear Form
+                document.getElementById('feedbackForm').reset();
+                document.querySelectorAll('.star-rating i').forEach(s => s.classList.remove('active'));
+                document.querySelectorAll('input[type="hidden"]').forEach(inp => inp.value = '');
+
+                setTimeout(() => {
+                    submitBtn.innerText = "SUBMIT FEEDBACK";
+                    submitBtn.style.backgroundColor = "";
+                    submitBtn.classList.add('bg-navy');
+                    submitBtn.disabled = false;
+                }, 3000);
+            }).catch(error => {
+                console.error(error);
+                submitBtn.innerText = "ERROR - TRY AGAIN";
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>Submit Feedback</span>';
-            }, 600);
-        }
-
-        function resetForm() {
-            document.getElementById('feedbackForm').reset();
-            currentRating = 0;
-            document.getElementById('ratingInput').value = '';
-            document.getElementById('ratingLabel').innerText = "Select your rating";
-            updateStarDisplay(0);
-            document.getElementById('successView').classList.add('hidden');
-            document.getElementById('feedbackForm').classList.remove('hidden');
-        }
+            });
+        });
     </script>
 </body>
 </html>
