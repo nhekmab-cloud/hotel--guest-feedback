@@ -5,38 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Independence Hotel - Guest Feedback</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
                     colors: {
                         navy: '#1B365D',
-                        gold: '#C5A880',
+                        navyDark: '#122543',
+                        gold: '#D4AF37',
+                        goldHover: '#B89528',
+                        lightBg: '#F8FAFC'
                     }
                 }
             }
         }
     </script>
     <style>
-        .star-rating i { color: #e5e7eb; cursor: pointer; transition: color 0.2s; }
-        .star-rating i.active, .star-rating i:hover { color: #C5A880; }
+        .star-rating i { color: #CBD5E1; cursor: pointer; transition: all 0.2s ease; }
+        .star-rating i.active, .star-rating i:hover { color: #D4AF37; transform: scale(1.15); }
     </style>
 </head>
-<body class="bg-gray-50 h-full flex items-center justify-center p-4">
-    <div class="max-w-md w-full bg-white rounded-xl shadow-lg overflow-hidden mt-4 mb-4">
-        <!-- Header & Logo -->
-        <div class="bg-navy p-6 text-center">
-            <img src="Logo PNG-white.png" alt="Independence Hotel" class="h-16 mx-auto mb-2" onerror="this.src='https://via.placeholder.com/150x50?text=Logo'">
-            <h2 class="text-white text-xl font-semibold tracking-wider">GUEST EXPERIENCE SURVEY</h2>
+<body class="bg-slate-100 font-sans min-h-full flex items-center justify-center p-3 sm:p-6">
+    
+    <div class="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100 my-4">
+        
+        <!-- Header & Logo Section -->
+        <div class="bg-navy p-7 text-center relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+            
+            <!-- Logo Box Container (Ensures logo is always visible) -->
+            <div class="bg-white p-3 rounded-xl shadow-md inline-block mb-3 border border-white/20">
+                <img src="Logo PNG-white.png" alt="Independence Hotel" class="h-12 mx-auto object-contain" onerror="this.src='IH_LOGO.png'; this.onerror=null;">
+            </div>
+            
+            <h2 class="text-white font-bold text-lg tracking-wide uppercase">Guest Experience Survey</h2>
+            <p class="text-slate-300 text-xs mt-1">We value your stay & invite your feedback</p>
         </div>
 
-        <!-- Form -->
-        <form id="feedbackForm" class="p-6 space-y-6">
+        <!-- Form Section -->
+        <form id="feedbackForm" class="p-5 sm:p-6 space-y-5">
+            
             <!-- Outlet Selection -->
             <div>
-                <label class="block text-sm font-bold text-navy mb-2">Where are you dining or relaxing today? *</label>
-                <select id="outlet" required class="w-full border-gray-300 border rounded-md p-3 focus:ring-navy focus:border-navy bg-white text-gray-700">
+                <label class="block text-xs font-bold uppercase tracking-wider text-navy mb-2">
+                    <i class="fa-solid fa-location-dot text-gold mr-1"></i> Dining or Relaxing Location *
+                </label>
+                <select id="outlet" required class="w-full border-2 border-slate-200 rounded-xl p-3 focus:ring-2 focus:ring-navy focus:border-navy bg-slate-50 text-slate-800 text-sm font-medium transition">
                     <option value="">-- Please select location --</option>
                     <option value="Sunset Restaurant">Sunset Restaurant</option>
                     <option value="Coral Restaurant (Breakfast)">Coral Restaurant (Breakfast)</option>
@@ -49,15 +68,16 @@
                 </select>
             </div>
 
-            <hr class="border-gray-200">
+            <!-- Ratings Section Container -->
+            <div class="space-y-3 pt-2">
+                <p class="text-xs font-bold uppercase tracking-wider text-navy">
+                    <i class="fa-solid fa-star text-gold mr-1"></i> Your Experience Ratings *
+                </p>
 
-            <!-- Ratings Section -->
-            <div class="space-y-4">
-                
-                <!-- Overall -->
-                <div class="flex flex-col items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
-                    <label class="text-sm font-bold text-navy mb-1">Overall Experience *</label>
-                    <div class="flex space-x-2 text-3xl star-rating" data-category="overall">
+                <!-- Overall Rating (Featured Card) -->
+                <div class="bg-amber-50/50 border-2 border-amber-200/60 p-4 rounded-xl text-center shadow-sm">
+                    <label class="block text-sm font-bold text-navy mb-1">Overall Experience</label>
+                    <div class="flex justify-center space-x-2 text-3xl star-rating py-1" data-category="overall">
                         <i class="fas fa-star" data-rating="1"></i>
                         <i class="fas fa-star" data-rating="2"></i>
                         <i class="fas fa-star" data-rating="3"></i>
@@ -67,58 +87,69 @@
                     <input type="hidden" id="rating_overall">
                 </div>
 
-                <!-- Food & Beverage -->
-                <div class="flex flex-col items-center">
-                    <label class="text-xs font-semibold text-gray-600 mb-1">Food & Beverage Quality *</label>
-                    <div class="flex space-x-1 text-2xl star-rating" data-category="food">
-                        <i class="fas fa-star" data-rating="1"></i>
-                        <i class="fas fa-star" data-rating="2"></i>
-                        <i class="fas fa-star" data-rating="3"></i>
-                        <i class="fas fa-star" data-rating="4"></i>
-                        <i class="fas fa-star" data-rating="5"></i>
+                <!-- Category Ratings Grid -->
+                <div class="grid grid-cols-1 gap-2.5">
+                    
+                    <!-- Food & Beverage -->
+                    <div class="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs font-semibold text-slate-700 flex items-center">
+                            <i class="fa-solid fa-utensils text-navy/60 mr-2 w-4 text-center"></i> Food & Beverage
+                        </span>
+                        <div class="flex space-x-1 text-xl star-rating" data-category="food">
+                            <i class="fas fa-star" data-rating="1"></i>
+                            <i class="fas fa-star" data-rating="2"></i>
+                            <i class="fas fa-star" data-rating="3"></i>
+                            <i class="fas fa-star" data-rating="4"></i>
+                            <i class="fas fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="rating_food">
                     </div>
-                    <input type="hidden" id="rating_food">
-                </div>
 
-                <!-- Staff Service -->
-                <div class="flex flex-col items-center">
-                    <label class="text-xs font-semibold text-gray-600 mb-1">Staff Service & Speed *</label>
-                    <div class="flex space-x-1 text-2xl star-rating" data-category="service">
-                        <i class="fas fa-star" data-rating="1"></i>
-                        <i class="fas fa-star" data-rating="2"></i>
-                        <i class="fas fa-star" data-rating="3"></i>
-                        <i class="fas fa-star" data-rating="4"></i>
-                        <i class="fas fa-star" data-rating="5"></i>
+                    <!-- Staff Service -->
+                    <div class="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs font-semibold text-slate-700 flex items-center">
+                            <i class="fa-solid fa-concierge-bell text-navy/60 mr-2 w-4 text-center"></i> Staff & Speed
+                        </span>
+                        <div class="flex space-x-1 text-xl star-rating" data-category="service">
+                            <i class="fas fa-star" data-rating="1"></i>
+                            <i class="fas fa-star" data-rating="2"></i>
+                            <i class="fas fa-star" data-rating="3"></i>
+                            <i class="fas fa-star" data-rating="4"></i>
+                            <i class="fas fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="rating_service">
                     </div>
-                    <input type="hidden" id="rating_service">
-                </div>
 
-                <!-- Cleanliness & Atmosphere -->
-                <div class="flex flex-col items-center">
-                    <label class="text-xs font-semibold text-gray-600 mb-1">Cleanliness & Atmosphere *</label>
-                    <div class="flex space-x-1 text-2xl star-rating" data-category="cleanliness">
-                        <i class="fas fa-star" data-rating="1"></i>
-                        <i class="fas fa-star" data-rating="2"></i>
-                        <i class="fas fa-star" data-rating="3"></i>
-                        <i class="fas fa-star" data-rating="4"></i>
-                        <i class="fas fa-star" data-rating="5"></i>
+                    <!-- Cleanliness -->
+                    <div class="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs font-semibold text-slate-700 flex items-center">
+                            <i class="fa-solid fa-broom text-navy/60 mr-2 w-4 text-center"></i> Cleanliness
+                        </span>
+                        <div class="flex space-x-1 text-xl star-rating" data-category="cleanliness">
+                            <i class="fas fa-star" data-rating="1"></i>
+                            <i class="fas fa-star" data-rating="2"></i>
+                            <i class="fas fa-star" data-rating="3"></i>
+                            <i class="fas fa-star" data-rating="4"></i>
+                            <i class="fas fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="rating_cleanliness">
                     </div>
-                    <input type="hidden" id="rating_cleanliness">
-                </div>
 
+                </div>
             </div>
 
-            <hr class="border-gray-200">
-
-            <!-- Comments -->
+            <!-- Comments Box -->
             <div>
-                <label class="block text-sm font-bold text-navy mb-2">Any comments or suggestions for us? (Optional)</label>
-                <textarea id="comments" rows="3" class="w-full border-gray-300 border rounded-md p-3 focus:ring-navy focus:border-navy text-sm" placeholder="Tell us how we can make your experience even better..."></textarea>
+                <label class="block text-xs font-bold uppercase tracking-wider text-navy mb-2">
+                    <i class="fa-solid fa-comment-dots text-gold mr-1"></i> Comments or Suggestions
+                </label>
+                <textarea id="comments" rows="3" class="w-full border-2 border-slate-200 rounded-xl p-3 focus:ring-2 focus:ring-navy focus:border-navy text-sm bg-slate-50 text-slate-800" placeholder="Share your experience or how we can improve..."></textarea>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" id="submitBtn" class="w-full bg-navy text-white font-bold py-3 px-4 rounded-md hover:bg-opacity-90 transition shadow-md">
-                SUBMIT FEEDBACK
+            <button type="submit" id="submitBtn" class="w-full bg-navy hover:bg-navyDark text-white font-bold py-3.5 px-4 rounded-xl transition duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2">
+                <span>SUBMIT FEEDBACK</span>
+                <i class="fa-solid fa-paper-plane text-xs"></i>
             </button>
         </form>
     </div>
@@ -138,9 +169,7 @@
                     let rating = this.getAttribute('data-rating');
                     input.value = rating;
                     
-                    // Reset all stars in this group
                     stars.forEach(s => s.classList.remove('active'));
-                    // Highlight selected stars
                     for(let i=0; i<rating; i++) {
                         stars[i].classList.add('active');
                     }
@@ -152,7 +181,6 @@
         document.getElementById('feedbackForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Validate all stars are clicked
             const rOverall = document.getElementById('rating_overall').value;
             const rFood = document.getElementById('rating_food').value;
             const rService = document.getElementById('rating_service').value;
@@ -164,7 +192,7 @@
             }
 
             const submitBtn = document.getElementById('submitBtn');
-            submitBtn.innerText = "SUBMITTING...";
+            submitBtn.innerHTML = `<span>SUBMITTING...</span> <i class="fa-solid fa-spinner fa-spin text-xs"></i>`;
             submitBtn.disabled = true;
 
             const data = {
@@ -184,17 +212,16 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             }).then(response => {
-                submitBtn.innerText = "SUCCESS! THANK YOU";
+                submitBtn.innerHTML = `<span>SUCCESS! THANK YOU</span> <i class="fa-solid fa-circle-check"></i>`;
                 submitBtn.classList.remove('bg-navy');
-                submitBtn.style.backgroundColor = "#28a745"; 
+                submitBtn.style.backgroundColor = "#16a34a"; 
                 
-                // Clear Form
                 document.getElementById('feedbackForm').reset();
                 document.querySelectorAll('.star-rating i').forEach(s => s.classList.remove('active'));
                 document.querySelectorAll('input[type="hidden"]').forEach(inp => inp.value = '');
 
                 setTimeout(() => {
-                    submitBtn.innerText = "SUBMIT FEEDBACK";
+                    submitBtn.innerHTML = `<span>SUBMIT FEEDBACK</span> <i class="fa-solid fa-paper-plane text-xs"></i>`;
                     submitBtn.style.backgroundColor = "";
                     submitBtn.classList.add('bg-navy');
                     submitBtn.disabled = false;
